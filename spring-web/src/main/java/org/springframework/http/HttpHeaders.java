@@ -92,6 +92,7 @@ import org.springframework.util.StringUtils;
  * @author Josh Long
  * @author Sam Brannen
  * @author Simon Baslé
+ * @author Yanming Zhou
  * @since 3.0
  */
 public class HttpHeaders implements Serializable {
@@ -473,10 +474,7 @@ public class HttpHeaders implements Serializable {
 			this.headers = CollectionUtils.toMultiValueMap(new LinkedCaseInsensitiveMap<>(8, Locale.ENGLISH));
 		}
 		else {
-			while (httpHeaders.headers instanceof HttpHeaders wrapped) {
-				httpHeaders = wrapped;
-			}
-			this.headers = httpHeaders.headers;
+			this.headers = new LinkedMultiValueMap<>(httpHeaders.headers);
 		}
 	}
 
